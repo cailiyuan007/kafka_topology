@@ -1,30 +1,29 @@
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import kafka.consumer.ConsumerConfig;
-import kafka.consumer.ConsumerIterator;
-import kafka.consumer.KafkaStream;
-import kafka.javaapi.consumer.ConsumerConnector;
 import backtype.storm.spout.SpoutOutputCollector;
 import backtype.storm.task.TopologyContext;
 import backtype.storm.topology.IRichSpout;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
+import kafka.consumer.ConsumerConfig;
+import kafka.consumer.ConsumerIterator;
+import kafka.consumer.KafkaStream;
+import kafka.javaapi.consumer.ConsumerConnector;
 
-public class KafkaSpouttest implements IRichSpout {
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+public class KafkaSpout implements IRichSpout {
 
     private SpoutOutputCollector collector;
     private ConsumerConnector consumer;
     private String topic;
 
-    public KafkaSpouttest() {
+    public KafkaSpout() {
     }
 
-    public KafkaSpouttest(String topic) {
+    public KafkaSpout(String topic) {
         this.topic = topic;
     }
 
@@ -50,14 +49,14 @@ public class KafkaSpouttest implements IRichSpout {
         KafkaStream<byte[],byte[]>stream = streamMap.get(topic).get(0);
         ConsumerIterator<byte[],byte[]> it =stream.iterator();
         while(it.hasNext()){
-            String value =new String(it.next().message());
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss SSS");
-            Date curDate = new Date(System.currentTimeMillis());//获取当前时间
-            String str = formatter.format(curDate);
+            String line =new String(it.next().message());
+            System.out.println("storm接收到来自kafka的消息------->" + line);
 
-            System.out.println("storm接收到来自kafka的消息------->" + value);
+            String arr[] = line.split("\t",-1);
+            String time = arr[0];
+            String telephone = arr[1];
 
-            collector.emit(new Values(value,1,str), value);
+            collector.emit(new Values(time,telephone));
         }
     }
 
@@ -83,12 +82,13 @@ public class KafkaSpouttest implements IRichSpout {
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("word","id","time"));
+
+        declarer.declare(new Fields("time","telephone"));
     }
 
     public Map<String, Object> getComponentConfiguration() {
         System.out.println("getComponentConfiguration被调用");
-        topic="idoall_testTopic";
+        topic="idoall_topic";
         return null;
     }
 }
