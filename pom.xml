@@ -123,8 +123,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>KafkaTopologytest</mainClass>
-                    <!--mainClass>datasource.SendMessage</mainClass-->
+                    <mainClass>KafkaTopology</mainClass>
                 </configuration>
             </plugin>
         </plugins>
