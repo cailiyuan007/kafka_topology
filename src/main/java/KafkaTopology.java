@@ -3,13 +3,15 @@ import backtype.storm.StormSubmitter;
 import backtype.storm.generated.AlreadyAliveException;
 import backtype.storm.generated.InvalidTopologyException;
 import backtype.storm.topology.TopologyBuilder;
+import backtype.storm.spout.SchemeAsMultiScheme;
+
 import storm.kafka.*;
 
 /**
  * Created by CLY on 2015/5/28.
  */
 public class KafkaTopology {
-    public static void main(String[] args){
+    public static void main(String[] args) throws AlreadyAliveException, InvalidTopologyException, InterruptedException{
         // 1.指定broker地址
         String zks = "master:2181,slave:2181";
         BrokerHosts brokerHosts = new ZkHosts(zks);
