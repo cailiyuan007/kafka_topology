@@ -25,9 +25,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.sksamuel.kafka</groupId>
-            <artifactId>kafka_2.10</artifactId>
-            <version>0.8.0-beta1</version>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.9.2</artifactId>
+            <version>0.8.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.zookeeper</groupId>
+                    <artifactId>zookeeper</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
@@ -45,11 +55,20 @@
             <version>1.2.1</version>
         </dependency>
         <dependency>
-            <groupId>storm</groupId>
-            <artifactId>storm</artifactId>
-            <version>0.8.2</version>
-            <!-- keep storm out of the jar-with-dependencies -->
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-kafka</artifactId>
+            <version>0.9.2-incubating</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm-core</artifactId>
+            <version>0.9.2-incubating</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.storm</groupId>
+            <artifactId>storm</artifactId>
+            <version>0.9.2-incubating</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>

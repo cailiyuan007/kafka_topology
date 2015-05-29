@@ -32,8 +32,9 @@ public class DataBolt extends BaseBasicBolt{
     }
 
     public void execute(Tuple input, BasicOutputCollector collector) {
-        String rowkey = TransferTime(input.getString(0));
-        String telephone = input.getString(1);
+        String [] arr = input.getString(0).split("\t",-1);
+        String rowkey = TransferTime(arr[0]);
+        String telephone = arr[1];
 
         Put put = new Put(Bytes.toBytes(rowkey));
 
@@ -66,7 +67,7 @@ public class DataBolt extends BaseBasicBolt{
     }
 
     public void declareOutputFields(OutputFieldsDeclarer declarer) {
-        declarer.declare(new Fields("time","telephone"));
+        declarer.declare(new Fields("time"));
     }
 
     public String TransferTime(String time) {
