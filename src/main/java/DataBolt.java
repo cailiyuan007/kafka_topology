@@ -32,8 +32,8 @@ public class DataBolt extends BaseBasicBolt{
     }
 
     public void execute(Tuple input, BasicOutputCollector collector) {
-        String rowkey = input.getString(0);
-        String telephone = TransferTime(input.getString(1));
+        String rowkey = TransferTime(input.getString(0));
+        String telephone = input.getString(1);
 
         Put put = new Put(Bytes.toBytes(rowkey));
 
