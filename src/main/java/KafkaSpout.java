@@ -4,6 +4,7 @@ import backtype.storm.topology.IRichSpout;
 import backtype.storm.topology.OutputFieldsDeclarer;
 import backtype.storm.tuple.Fields;
 import backtype.storm.tuple.Values;
+import kafka.consumer.Consumer;
 import kafka.consumer.ConsumerConfig;
 import kafka.consumer.ConsumerIterator;
 import kafka.consumer.KafkaStream;
@@ -39,7 +40,7 @@ public class KafkaSpout implements IRichSpout {
 
     public void activate() {
 
-        consumer =kafka.consumer.Consumer.createJavaConsumerConnector(createConsumerConfig());
+        consumer = Consumer.createJavaConsumerConnector(createConsumerConfig());
         Map<String,Integer> topickMap = new HashMap<String, Integer>();
         topickMap.put(topic, 1);
 
