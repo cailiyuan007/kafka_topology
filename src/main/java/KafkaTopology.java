@@ -21,7 +21,7 @@ public class KafkaTopology {
         String id = "appdata_monitor";
 
         SpoutConfig spoutConf = new SpoutConfig(brokerHosts, topic, zkRoot, id);
-        spoutConf.scheme = new SchemeAsMultScheme(new StringScheme());
+        spoutConf.scheme = new SchemeAsMultiScheme(new StringScheme());
 
         TopologyBuilder builder = new TopologyBuilder();
         builder.setSpout("spout", new KafkaSpout(spoutConf), 1);
