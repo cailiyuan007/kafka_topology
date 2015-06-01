@@ -17,7 +17,7 @@ public class KafkaTopology {
         BrokerHosts brokerHosts = new ZkHosts(zks);
         // 2.spout
         String topic = "idoall_topic";
-        String zkRoot = "kafkastorm";
+        String zkRoot = "/kafkastorm";
         String id = "appdata_monitor";
 
         SpoutConfig spoutConf = new SpoutConfig(brokerHosts, topic, zkRoot, id);
