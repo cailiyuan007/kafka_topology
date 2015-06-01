@@ -72,7 +72,6 @@ public class DataBolt extends BaseBasicBolt{
 
     public String TransferTime(String time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
-        sdf.setTimeZone(TimeZone.getTimeZone("Asia/ShangHai"));
         String sd = sdf.format(new Date(Long.parseLong(time)));
         return sd;
     }
